@@ -41,9 +41,17 @@ const Home = () => {
       task.name.toLowerCase().includes(searchTerm.toLowerCase())
     )
     .sort((a, b) => {
-      if (sortOption === "all") return 0;
+      if (sortOption === "all") {
+        return 0;
+      }
       const order = priorityOrders[sortOption];
       return order.indexOf(a.priority) - order.indexOf(b.priority);
+    })
+    .sort((c, d) => {
+      if (c.completed === d.completed) {
+        return 0;
+      }
+      return c.completed ? 1 : -1;
     });
 
   const toggleTaskCompletion = (id) => {
@@ -55,7 +63,7 @@ const Home = () => {
   };
 
   return (
-    <section className="h-screen"> 
+    <section className="h-screen">
       <div className="flex flex-col my-4 ">
         <p className="my-3 font-bold text-[30px] justify-center items-center flex">
           TODO LIST
@@ -119,29 +127,33 @@ const Home = () => {
                   {"Priority: " + task.priority}
                 </p>
               </div>
-              <div className="flex flex-row gap-3 right-[-80px] md:right-0 relative">
-                <button
-                  onClick={() => deleteTask(task.id)}
-                  className="bg-red-700 text-white rounded-sm p-1 hover:bg-red-500"
-                >
-                  Delete Task
-                </button>
-                {editingTask === task.id ? (
+              {task.completed ? (
+                ""
+              ) : (
+                <div className="flex flex-row gap-3 right-[-80px] md:right-0 relative">
                   <button
-                    onClick={() => saveTask(task.id)}
-                    className="bg-green-700 text-white rounded-sm p-1 hover:bg-green-500"
+                    onClick={() => deleteTask(task.id)}
+                    className="bg-red-700 text-white rounded-sm p-1 hover:bg-red-500"
                   >
-                    Save
+                    Delete Task
                   </button>
-                ) : (
-                  <button
-                    onClick={() => startEditing(task)}
-                    className="bg-blue-700 text-white rounded-sm p-1 hover:bg-blue-500"
-                  >
-                    Edit Task
-                  </button>
-                )}
-              </div>
+                  {editingTask === task.id ? (
+                    <button
+                      onClick={() => saveTask(task.id)}
+                      className="bg-green-700 text-white rounded-sm p-1 hover:bg-green-500"
+                    >
+                      Save
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => startEditing(task)}
+                      className="bg-blue-700 text-white rounded-sm p-1 hover:bg-blue-500"
+                    >
+                      Edit Task
+                    </button>
+                  )}
+                </div>
+              )}
             </div>
             <div>
               <hr
