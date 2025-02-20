@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { FaSearch } from "react-icons/fa";
-
+import TodoImage from "../assets/todo_icon.png";
+// import DeleteImage from "../assets/delete.png";
+import { MdDeleteForever, MdEditDocument } from "react-icons/md";
+import { BsDatabaseFillX } from "react-icons/bs";
+import { FaCheckCircle } from "react-icons/fa";
 const Home = () => {
   const Data = JSON.parse(localStorage.getItem("task"));
   const [tasks, setTasks] = useState(Data);
@@ -64,26 +68,55 @@ const Home = () => {
 
   return (
     <section className="h-screen">
-      <div className="flex flex-col my-4 ">
-        <p className="my-3 font-bold text-[30px] justify-center items-center flex">
-          TODO LIST
-        </p>
+      <div className="flex flex-col my-4 border-2 bg-white p-4 rounded-md shadow-md w-[550px] h-[600px] overflow-auto">
+        <div className="flex flex-row items-center justify-between">
+          <div className="flex flex-row items-center ">
+            <img src={TodoImage} alt="" className="w-[35px] h-[35px]" />
+            <p className="my-3 font-bold text-[30px] justify-center items-center flex">
+              TODO LIST
+            </p>
+          </div>
+
+          <div className="flex flex-row items-center justify-center gap-2">
+            <span className="font-bold text-[20px] text-black/50">
+              Clear Storage:
+            </span>
+            <BsDatabaseFillX
+              className="text-red-500 cursor-pointer text-[20px] hover:text-red-700"
+              onClick={() => {
+                window.localStorage.clear();
+                window.location.reload();
+              }}
+            />
+          </div>
+
+          {/* <button
+            className="border-2 bg-amber-900 rounded-lg text-white font-bold p-1"
+            onClick={() => {
+              window.localStorage.clear();
+              window.location.reload();
+            }}
+          >
+            Clear Local Storage
+          </button> */}
+        </div>
+
         <div className="flex flex-col md:flex-row gap-4 justify-center items-center mb-3">
           <div className="relative flex flex-row justify-center items-center">
             <FaSearch className="absolute text-gray-500 left-3 top-[5px]" />
             <input
               type="text"
-              className="border-2 rounded-sm shadow-sm md:w-[400px] px-[35px]"
+              className="border-2 border-black/60 rounded-sm shadow-sm md:w-[400px] px-[35px]"
               placeholder="Search task..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
 
-          <div className="flex flex-row justify-center items-center">
+          <div className="flex flex-row justify-center items-center ">
             <select
               name="sort"
-              className="border-2 rounded-sm"
+              className="border-2 rounded-sm border-black/60 "
               value={sortOption}
               onChange={(e) => setSortOption(e.target.value)}
             >
@@ -101,7 +134,7 @@ const Home = () => {
               <div className="flex flex-row items-center gap-3 font-bold">
                 <input
                   type="checkbox"
-                  className="w-[20px] h-[20px] border-gray-300 rounded"
+                  className="w-5 h-5 border border-black/60 rounded-full appearance-none checked:bg-black checked:border-transparent"
                   checked={task.completed || false}
                   onChange={() => toggleTaskCompletion(task.id)}
                 />
@@ -110,7 +143,7 @@ const Home = () => {
                     type="text"
                     value={editedName}
                     onChange={(e) => setEditedName(e.target.value)}
-                    className="border rounded-sm px-2 py-1"
+                    className="border rounded-sm px-2 py-1 border-black/60"
                   />
                 ) : (
                   <p
@@ -131,26 +164,29 @@ const Home = () => {
                 ""
               ) : (
                 <div className="flex flex-row gap-3 right-[-80px] md:right-0 relative">
-                  <button
-                    onClick={() => deleteTask(task.id)}
-                    className="bg-red-700 text-white rounded-sm p-1 hover:bg-red-500"
-                  >
-                    Delete Task
-                  </button>
                   {editingTask === task.id ? (
                     <button
                       onClick={() => saveTask(task.id)}
-                      className="bg-green-700 text-white rounded-sm p-1 hover:bg-green-500"
+                      className=""
                     >
-                      Save
+                      <FaCheckCircle className="w-[30px] h-[30px] text-green-700 hover:text-green-500"/>
                     </button>
                   ) : (
-                    <button
-                      onClick={() => startEditing(task)}
-                      className="bg-blue-700 text-white rounded-sm p-1 hover:bg-blue-500"
-                    >
-                      Edit Task
-                    </button>
+                    <div className="flex flex-row gap-3"> 
+                      <button
+                        onClick={() => deleteTask(task.id)}
+                        className="bg-red-700 text-white rounded-sm p-1 hover:bg-red-500"
+                      >
+                        <MdDeleteForever />
+                      </button>
+
+                      <button
+                        onClick={() => startEditing(task)}
+                        className="bg-blue-700 text-white rounded-sm p-1 hover:bg-blue-500"
+                      >
+                        <MdEditDocument />
+                      </button>
+                    </div>
                   )}
                 </div>
               )}
