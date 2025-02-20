@@ -42,7 +42,7 @@ const BrowserStoreData = () => {
         >
           Reload Window
         </button> */}
-        <button
+        {/* <button
           className="border-2 bg-amber-900 rounded-lg text-white font-bold p-1"
           onClick={() => {
             window.localStorage.clear();
@@ -50,7 +50,7 @@ const BrowserStoreData = () => {
           }}
         >
           Clear Local Storage
-        </button>
+        </button> */}
       </header>
 
       <br />
