@@ -34,9 +34,9 @@ const BrowserStoreData = () => {
   };
 
   return (
-    <section className="h-screen flex flex-col items-center justify-center mt-20">
+    <section className="h-screen flex flex-col items-center justify-center mt-18">
     
-      <div className="flex flex-col items-center justify-center border-2 bg-white p-4 rounded-md shadow-md w-[550px] h-[150px]">
+      <div className="flex flex-col items-center justify-center border-2 border-black/60 bg-white/70 p-4 rounded-md shadow-lg w-[550px] h-[150px]">
         {/* <h1 className="text-3xl font-bold underline my-2 mx-2">ADD TASK</h1> */}
         <form
           action="submit"
@@ -80,6 +80,7 @@ const BrowserStoreData = () => {
       <div className="flex flex-col items-center  ">
         {showHome ? <Home /> : "No Data Found!"}
       </div>
+      
     </section>
   );
 };

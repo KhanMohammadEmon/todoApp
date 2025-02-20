@@ -68,11 +68,11 @@ const Home = () => {
 
   return (
     <section className="h-screen">
-      <div className="flex flex-col my-4 border-2 bg-white p-4 rounded-md shadow-md w-[550px] h-[600px] overflow-auto">
+      <div className="flex flex-col my-[2px] border-2 border-black/60  bg-white/70 p-4 rounded-md shadow-lg w-[550px] h-[563px] overflow-auto">
         <div className="flex flex-row items-center justify-between">
           <div className="flex flex-row items-center ">
             <img src={TodoImage} alt="" className="w-[35px] h-[35px]" />
-            <p className="my-3 font-bold text-[30px] justify-center items-center flex">
+            <p className="my-3 font-bold text-[30px] justify-center items-center flex font-bold ">
               TODO LIST
             </p>
           </div>
@@ -165,14 +165,11 @@ const Home = () => {
               ) : (
                 <div className="flex flex-row gap-3 right-[-80px] md:right-0 relative">
                   {editingTask === task.id ? (
-                    <button
-                      onClick={() => saveTask(task.id)}
-                      className=""
-                    >
-                      <FaCheckCircle className="w-[30px] h-[30px] text-green-700 hover:text-green-500"/>
+                    <button onClick={() => saveTask(task.id)} className="">
+                      <FaCheckCircle className="w-[30px] h-[30px] text-green-700 hover:text-green-500" />
                     </button>
                   ) : (
-                    <div className="flex flex-row gap-3"> 
+                    <div className="flex flex-row gap-3">
                       <button
                         onClick={() => deleteTask(task.id)}
                         className="bg-red-700 text-white rounded-sm p-1 hover:bg-red-500"
